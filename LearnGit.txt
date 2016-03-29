@@ -1,0 +1,49 @@
+创建版本库：git init
+添加到暂存区：git add filename
+提交到版本库：git commit -m "xxx"
+查看状态：git status
+查看修改内容：git diff filename
+查看历史：git log  一行：git log --pretty=oneline
+修改版本：git reset --hard HEAD^/版本号
+查看命令历史：git reflog
+提交后查看与最新版本不同：git diff HEAD -- filename
+撤销工作区修改：git checkout -- filename（回退到最新版本或暂存区）
+撤销暂存区修改：git reset HEAD filename  然后撤销工作区修改
+删除：git rm filename
+撤销删除：git checkout -- filename
+创建SSH Key：ssh-keygen -t rsa -C "email@example.com"  设置SSH Key
+链接远程库：git remote add origin git@github.com:user_id/repo_name.git
+第一次推送：git push -u origin master  后续推送：git push origin master
+克隆远程库：git clone git@github.com:user_id/repo_name.git
+创建分支：git checkout -b dev  =  git branch dev    git checkout dev
+查看当前分支：git branch
+切换回主分支：git checkout master
+合并分支：git merge dev
+删除分支：git branch -d dev
+冲突时必须先解决冲突
+查看分支合并图：git log --graph    git log --graph --pretty=oneline --abbrev-commit
+通常合并分支使用Fast forward模式，删除分支后丢失分支信息
+禁用Fast forward模式，Git会在merge时commit：
+git merge --no-ff -m "xxx" dev
+master分支应该是非常稳定的，也就是仅用来发布新版本，dev是不稳定的，每个人都在dev上干活
+存储工作现场：git stash
+查看现场列表：git stash list
+恢复现场：git stash apply   需使用git stash drop删除现场   git stash pop   直接删除现场
+使用stash@{0}恢复指定stash
+丢弃一个未合并的分支：git branch -D branch_name
+查看远程信息：git remote   查看更详细远程信息：git remote -v
+克隆远程库后，默认只看到master分支  要想看到dev分支，需要把dev分支创建到本地：git checkout -b dev origin/dev
+推送失败，从远程抓取分支：git pull（失败则指定本地dev分支与远程dev分支的连接：git branch --set-upstream dev origin/dev），解决冲突后重新提交
+标签不按时间顺序排列，按字母顺序排列。
+查看标签信息：git show tagname
+-a指定标签名，-m指定说明文字：git tag -a v0.1 -m "version 0.1 released" 3215987
+-s用私钥签名一个标签：git tag -s v0.2 -m "signed version 0.2 released" fec145a
+删除标签：git tag -d v0.1
+推送一个标签到远程：git push origin tagname
+推送未推送的标签到远程：git push origin --tags
+删除已推送的标签：先本地删除：git tag -d v0.9   再推送到远程：git push origin :refs/tags/v0.9
+配置项：颜色：git config --global color.ui true
+忽略某些文件时，需要编写.gitignore。.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理
+配置别名：git config --global alias.st status
+配置一个unstage别名：git config --global alias.unstage 'reset HEAD'
+配置lg：git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
